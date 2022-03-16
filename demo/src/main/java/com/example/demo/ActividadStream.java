@@ -3,6 +3,7 @@ package com.example.demo;
 
 import org.springframework.cglib.core.Local;
 
+import java.security.PublicKey;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -90,6 +91,7 @@ public class ActividadStream {
         lista.add(f3);
         lista.add(f4);
 
+
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         // filtraje funcional con streams
 
@@ -117,6 +119,29 @@ public class ActividadStream {
                 .collect(Collectors.toList());
         System.out.println("las facturas mas recientes a la fecha dada son: " + facturaFechaMayor);
 
+        List<Factura> facturaCantidadDeProductoIgual=lista.stream()
+                .filter(elemento -> elemento.getCantidadProductos() == 3)
+                .collect(Collectors.toList());
+        System.out.println("las facturas  con esa cantidad de productos son " + facturaCantidadDeProductoIgual);
+
+        List<Factura> facturaCantidadDeProductoMayor=lista.stream()
+                .filter(elemento -> elemento.getCantidadProductos() > 2)
+                .collect(Collectors.toList());
+        System.out.println("las facturas  con mas de esos productos es:  " + facturaCantidadDeProductoMayor);
+
+        List<Factura> facturaCantidadDeProductoMenor=lista.stream()
+                .filter(elemento -> elemento.getCantidadProductos() < 2)
+                .collect(Collectors.toList());
+        System.out.println("las facturas  con menos de esos productos es:  " + facturaCantidadDeProductoMenor);
+
+
+        Factura facturaCodigoFactura =lista.stream()
+                .filter(elemento -> elemento.getCodigo() == 1)
+                        .findFirst().get();
+        System.out.println("la factura con ese codigo es: " + facturaCodigoFactura);
+
+
     }
+
 
 }
